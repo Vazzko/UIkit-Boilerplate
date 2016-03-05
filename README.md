@@ -1,4 +1,4 @@
 
-# A Yeoman Generator for UIkit framework (Sass)
+# A UIkit framework with Gulp.js (Sass)
 It includes gulp, browserify, livereload.
 
