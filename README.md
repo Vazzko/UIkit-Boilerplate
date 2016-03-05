@@ -74,3 +74,7 @@ $ gulp build
 ## License
 
 MIT
+=======
+# A Yeoman Generator for UIkit framework (Sass)
+It includes gulp, browserify, livereload.
+>>>>>>> 2c36abe7e01335bd3547bbe4ec5c360ac932cba4
