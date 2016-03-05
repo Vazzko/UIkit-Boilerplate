@@ -59,7 +59,7 @@ var bundler = watchify(browserify({
 }));
 
 bundler.on('update', rebundle);
-bundler.on('log', $.util.log);
+//bundler.on('log', $.util.log);
 
 function rebundle() {
     return bundler.bundle()

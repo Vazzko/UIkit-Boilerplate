@@ -1,19 +1,10 @@
 {
-  "name": "generator-uikit",
+  "name": "uikit-boilerplate",
   "version": "0.0.1",
   "description": "A Yeoman Generator for UIkit framework (Sass). It includes gulp, browserify, livereload.",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/randylien/generator-react-gulp-browserify.git"
-  },
-  "bugs": "https://github.com/randylien/generator-react-gulp-browserify/issues",
-  "author": {
-    "name": "Vronskiy Vasily",
-    "email": "vazzko@gmail.com",
-    "url": "https://github.com/Vazzko"
-  },
+  "author": "Vronskiy Vasily <vazzko@gmail.com> (https://github.com/Vazzko)",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -24,18 +15,20 @@
     "app"
   ],
   "keywords": [
-    "yeoman-generator",
     "browserify",
     "gulp"
   ],
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
-    "chalk": "~0.4.0"
   },
   "devDependencies": {
-    "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0"
+    "browser-sync": "^2.11.1",
+    "browserify": "^13.0.0",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-sass": "^2.2.0",
+    "mocha": "*",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }
