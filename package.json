@@ -18,6 +18,12 @@
     "browserify",
     "gulp"
   ],
+  "keywords": [],
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vazzko/uikit-boilerplate"
+  }
   "dependencies": {
   },
   "devDependencies": {
