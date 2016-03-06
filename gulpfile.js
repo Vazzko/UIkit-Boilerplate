@@ -11,6 +11,7 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream'),
 
     sourceFile = './app/scripts/app.js',
+
     destFolder = './dist/scripts',
     destFileName = 'app.js';
 
@@ -18,22 +19,22 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 gulp.task('sass', function () {
-  return gulp.src('./app/styles/*.scss')
-    .pipe(sass.sync().on('error', sass.logError))
-    .pipe(gulp.dest('dist/styles'));
+    return gulp.src('./app/styles/*.scss')
+        .pipe(sass.sync().on('error', sass.logError))
+        .pipe(gulp.dest('dist/styles'));
 });
 
 // Styles
 gulp.task('styles', ['sass', 'moveCss']);
 
-gulp.task('moveCss',['clean'], function(){
-  // the base option sets the relative root for the set of files,
-  // preserving the folder structure
-  gulp.src(['./app/styles/**/*.css'], { base: './app/styles/' })
-  .pipe(gulp.dest('dist/styles'));
+gulp.task('moveCss', ['clean'], function () {
+    // the base option sets the relative root for the set of files,
+    // preserving the folder structure
+    gulp.src(['./app/styles/**/*.css'], {base: './app/styles/'})
+        .pipe(gulp.dest('dist/styles'));
 });
 
-//gulp.task('sass', function() {
+//gulp.task('sass', function () {
 //    return $.rubySass('./app/styles', {
 //            style: 'expanded',
 //            precision: 10,
@@ -43,7 +44,6 @@ gulp.task('moveCss',['clean'], function(){
 //        .pipe(gulp.dest('dist/styles'))
 //        .pipe($.size());
 //});
-
 
 
 var bundler = watchify(browserify({
@@ -56,7 +56,7 @@ var bundler = watchify(browserify({
 }));
 
 bundler.on('update', rebundle);
-//bundler.on('log', $.util.log);
+bundler.on('log', $.util.log);
 
 function rebundle() {
     return bundler.bundle()
@@ -64,7 +64,7 @@ function rebundle() {
         .on('error', $.util.log.bind($.util, 'Browserify Error'))
         .pipe(source(destFileName))
         .pipe(gulp.dest(destFolder))
-        .on('end', function() {
+        .on('end', function () {
             reload();
         });
 }
@@ -72,7 +72,7 @@ function rebundle() {
 // Scripts
 gulp.task('scripts', rebundle);
 
-gulp.task('buildScripts', function() {
+gulp.task('buildScripts', function () {
     return browserify(sourceFile)
         .bundle()
         .pipe(source(destFileName))
@@ -80,9 +80,7 @@ gulp.task('buildScripts', function() {
 });
 
 
-
-
-gulp.task('jade', function() {
+gulp.task('jade', function () {
     return gulp.src('app/template/*.jade')
         .pipe($.jade({
             pretty: true
@@ -91,9 +89,8 @@ gulp.task('jade', function() {
 });
 
 
-
 // HTML
-gulp.task('html', function() {
+gulp.task('html', function () {
     return gulp.src('app/*.html')
         .pipe($.useref())
         .pipe(gulp.dest('dist'))
@@ -101,7 +98,7 @@ gulp.task('html', function() {
 });
 
 // Images
-gulp.task('images', function() {
+gulp.task('images', function () {
     return gulp.src('app/images/**/*')
         .pipe($.cache($.imagemin({
             optimizationLevel: 3,
@@ -113,7 +110,7 @@ gulp.task('images', function() {
 });
 
 // Fonts
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
 
     return gulp.src(require('main-bower-files')({
             filter: '**/*.{eot,svg,ttf,woff,woff2}'
@@ -123,13 +120,13 @@ gulp.task('fonts', function() {
 });
 
 // Clean
-gulp.task('clean', function(cb) {
+gulp.task('clean', function (cb) {
     $.cache.clearAll();
     cb(del.sync(['dist/styles', 'dist/scripts', 'dist/images']));
 });
 
 // Bundle
-gulp.task('bundle', ['styles', 'scripts', 'bower'], function() {
+gulp.task('bundle', ['styles', 'scripts', 'bower'], function () {
     return gulp.src('./app/*.html')
         .pipe($.useref.assets())
         .pipe($.useref.restore())
@@ -137,7 +134,7 @@ gulp.task('bundle', ['styles', 'scripts', 'bower'], function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('buildBundle', ['styles', 'buildScripts', 'moveLibraries', 'bower'], function() {
+gulp.task('buildBundle', ['styles', 'buildScripts', 'moveLibraries', 'bower'], function () {
     return gulp.src('./app/*.html')
         .pipe($.useref.assets())
         .pipe($.useref.restore())
@@ -146,16 +143,16 @@ gulp.task('buildBundle', ['styles', 'buildScripts', 'moveLibraries', 'bower'], f
 });
 
 // Move JS Files and Libraries
-gulp.task('moveLibraries',['clean'], function(){
-  // the base option sets the relative root for the set of files,
-  // preserving the folder structure
-  gulp.src(['./app/scripts/**/*.js'], { base: './app/scripts/' })
-  .pipe(gulp.dest('dist/scripts'));
+gulp.task('moveLibraries', ['clean'], function () {
+    // the base option sets the relative root for the set of files,
+    // preserving the folder structure
+    gulp.src(['./app/scripts/**/*.js'], {base: './app/scripts/'})
+        .pipe(gulp.dest('dist/scripts'));
 });
 
 
 // Bower helper
-gulp.task('bower', function() {
+gulp.task('bower', function () {
     gulp.src('app/bower_components/**/*.js', {
             base: 'app/bower_components'
         })
@@ -163,7 +160,7 @@ gulp.task('bower', function() {
 
 });
 
-gulp.task('json', function() {
+gulp.task('json', function () {
     gulp.src('app/scripts/json/**/*.json', {
             base: 'app/scripts'
         })
@@ -171,14 +168,14 @@ gulp.task('json', function() {
 });
 
 // Robots.txt and favicon.ico
-gulp.task('extras', function() {
+gulp.task('extras', function () {
     return gulp.src(['app/*.txt', 'app/*.ico'])
         .pipe(gulp.dest('dist/'))
         .pipe($.size());
 });
 
 // Watch
-gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
+gulp.task('watch', ['html', 'fonts', 'bundle'], function () {
 
     browserSync({
         notify: true,
@@ -207,7 +204,7 @@ gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
 });
 
 // Build
-gulp.task('build', ['html', 'buildBundle', 'images', 'fonts', 'extras'], function() {
+gulp.task('build', ['html', 'buildBundle', 'images', 'fonts', 'extras'], function () {
     gulp.src('dist/scripts/app.js')
         .pipe($.uglify())
         .pipe($.stripDebug())
@@ -215,4 +212,4 @@ gulp.task('build', ['html', 'buildBundle', 'images', 'fonts', 'extras'], functio
 });
 
 // Default task
-gulp.task('default', ['clean', 'build'  ]);
+gulp.task('default', ['clean', 'build']);
