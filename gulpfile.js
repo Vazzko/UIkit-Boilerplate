@@ -4,8 +4,6 @@ var gulp = require('gulp');
 var del = require('del');
 var sass = require('gulp-sass');
 
-
-
 // Load plugins
 var $ = require('gulp-load-plugins')();
 var browserify = require('browserify');
@@ -13,7 +11,6 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream'),
 
     sourceFile = './app/scripts/app.js',
-
     destFolder = './dist/scripts',
     destFileName = 'app.js';
 
